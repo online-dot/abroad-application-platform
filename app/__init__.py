@@ -13,12 +13,11 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__)
 
-    # --- Basic Config ---
+    # --- Configs & Extensions ---
     app.config['SECRET_KEY'] = 'your-secret-key'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../database/job_app.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    # --- Mail Config ---
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
@@ -26,10 +25,8 @@ def create_app():
     app.config['MAIL_PASSWORD'] = 'gcmzsribmuoztrgp'
     app.config['MAIL_DEFAULT_SENDER'] = 'kenyainchiyetu5@gmail.com'
 
-    # --- Upload Config ---
     app.config['UPLOAD_FOLDER'] = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'uploads')
 
-    # --- Init Extensions ---
     db.init_app(app)
     mail.init_app(app)
     migrate.init_app(app, db)
@@ -40,31 +37,19 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-    # --- Register Blueprints ---
     app.register_blueprint(auth_bp)
     app.register_blueprint(app_bp)
     app.register_blueprint(admin_bp)
 
-    # --- Start Scheduler ---
     start_scheduler(app)
 
-    # --- Create Tables ---
     with app.app_context():
         db.create_all()
 
-
-    # --- Create Tables ---
- 
-
-    print("✅ Registered Routes:")
-    print(app.url_map)
-
-    # ✅ Add a homepage route
+    # ✅ ✅ ✅ HOMEPAGE ROUTE — must be BEFORE `return app`
     @app.route('/')
     def index():
         return "✅ Abroad Application Platform is live on Render!"
-
-    return app
 
     print("✅ Registered Routes:")
     print(app.url_map)
