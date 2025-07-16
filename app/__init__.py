@@ -52,6 +52,20 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+
+    # --- Create Tables ---
+ 
+
+    print("✅ Registered Routes:")
+    print(app.url_map)
+
+    # ✅ Add a homepage route
+    @app.route('/')
+    def index():
+        return "✅ Abroad Application Platform is live on Render!"
+
+    return app
+
     print("✅ Registered Routes:")
     print(app.url_map)
 
