@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Step 3: Upload Documents</h4>
+        </div>
+
+        <div class="card-body">
+          <form method="POST" enctype="multipart/form-data">
+            
+            <!-- CV Upload -->
+            <div class="mb-3">
+              <label for="cv" class="form-label">📄 Upload CV / Resume</label>
+              <input type="file" class="form-control" id="cv" name="cv" required>
+            </div>
+
+            <!-- ID Upload -->
+            <div class="mb-3">
+              <label for="national_id" class="form-label">🪪 Upload National ID</label>
+              <input type="file" class="form-control" id="national_id" name="national_id" required>
+            </div>
+
+            <!-- Certificate Upload -->
+            <div class="mb-4">
+              <label for="certificate" class="form-label">🎓 Upload Academic Certificate</label>
+              <input type="file" class="form-control" id="certificate" name="certificate" required>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">📤 Submit Documents</button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

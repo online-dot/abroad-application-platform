@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h3>Passport Application Options</h3>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <h4>You need a passport to continue your application</h4>
+                <p>Choose one of the following options to obtain your passport:</p>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-secondary text-white">
+                            <h5>Government Passport Application</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">
+                                <i class="fas fa-clock"></i> Processing time: 4-8 weeks<br>
+                                <i class="fas fa-money-bill-wave"></i> Standard government fees apply
+                            </p>
+                            <p>Apply directly through the official government portal:</p>
+                            <a href="https://www.ecitizen.go.ke/passport" 
+                               class="btn btn-outline-primary" 
+                               target="_blank">
+                                Apply on eCitizen
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-success text-white">
+                            <h5>Express Passport Service</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-success">
+                                <i class="fas fa-bolt"></i> Fast-track processing: 7-10 days<br>
+                                <i class="fas fa-hand-holding-usd"></i> Special discounted rate
+                            </p>
+                            <p>Our expedited service guarantees faster processing with full government validity:</p>
+                            <a href="{{ url_for('app_bp.express_passport_application') }}" class="btn btn-success">
+
+                                Apply for Express Service
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning mt-4">
+                <h5>Why choose our express service?</h5>
+                <ul>
+                    <li>Priority processing with government contacts</li>
+                    <li>Document preparation assistance</li>
+                    <li>Status updates throughout the process</li>
+                    <li>30% faster than standard processing</li>
+                    <li>No extra hidden charges</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

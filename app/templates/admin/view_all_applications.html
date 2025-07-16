@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Applications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ✅ Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+    <!-- ✅ Header -->
+    <div class="text-center mb-4">
+        <h1 class="display-5">📄 All Applications</h1>
+        <p class="text-muted">Filter, sort, and review submitted applications.</p>
+    </div>
+
+    <!-- ✅ Filter Form -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="email" placeholder="Search email"
+                   value="{{ request.args.get('email', '') }}">
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="passport_status">
+                <option value="">Passport Status</option>
+                <option value="valid" {% if request.args.get('passport_status') == 'valid' %}selected{% endif %}>Valid</option>
+                <option value="invalid" {% if request.args.get('passport_status') == 'invalid' %}selected{% endif %}>Invalid</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="submitted">
+                <option value="">Submitted</option>
+                <option value="yes" {% if request.args.get('submitted') == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if request.args.get('submitted') == 'no' %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="approved">
+                <option value="">Approved</option>
+                <option value="yes" {% if request.args.get('approved') == 'yes' %}selected{% endif %}>Yes</option>
+                <option value="no" {% if request.args.get('approved') == 'no' %}selected{% endif %}>No</option>
+            </select>
+        </div>
+        <div class="col-md-3 text-end">
+            <button type="submit" class="btn btn-primary w-100">🔍 Filter</button>
+        </div>
+    </form>
+
+    <!-- ✅ Export CSV -->
+    <div class="mb-3 text-center">
+        <a class="btn btn-outline-secondary btn-sm" href="{{ url_for('admin_bp.export_applications_csv',
+            email=request.args.get('email', ''),
+            passport_status=request.args.get('passport_status', ''),
+            submitted=request.args.get('submitted', ''),
+            approved=request.args.get('approved', '')) }}">
+            📥 Export Filtered to CSV
+        </a>
+    </div>
+
+    <!-- ✅ Applications Table -->
+    {% if applications %}
+    <div class="table-responsive shadow-sm">
+        <table class="table table-bordered table-hover bg-white align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>
+                        <a class="text-decoration-none text-dark" href="{{ url_for('admin_bp.view_all_applications', 
+                            sort_by='name',
+                            sort_dir='desc' if sort_by == 'name' and sort_dir == 'asc' else 'asc',
+                            **request.args.to_dict(flat=True)) }}">
+                            Name {% if sort_by == 'name' %}{{ '▲' if sort_dir == 'asc' else '▼' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a class="text-decoration-none text-dark" href="{{ url_for('admin_bp.view_all_applications',
+                            sort_by='email',
+                            sort_dir='desc' if sort_by == 'email' and sort_dir == 'asc' else 'asc',
+                            **request.args.to_dict(flat=True)) }}">
+                            Email {% if sort_by == 'email' %}{{ '▲' if sort_dir == 'asc' else '▼' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>
+                        <a class="text-decoration-none text-dark" href="{{ url_for('admin_bp.view_all_applications',
+                            sort_by='passport_status',
+                            sort_dir='desc' if sort_by == 'passport_status' and sort_dir == 'asc' else 'asc',
+                            **request.args.to_dict(flat=True)) }}">
+                            Passport {% if sort_by == 'passport_status' %}{{ '▲' if sort_dir == 'asc' else '▼' }}{% endif %}
+                        </a>
+                    </th>
+                    <th>Submitted</th>
+                    <th>Approved</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in applications %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ app.user.full_name }}</td>
+                        <td>{{ app.user.email }}</td>
+                        <td>{{ app.passport_status|capitalize }}</td>
+                        <td>
+                            {% if app.submitted %}
+                                <span class="badge bg-success">✅ Yes</span>
+                            {% else %}
+                                <span class="badge bg-danger">❌ No</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if app.approved %}
+                                <span class="badge bg-success">✅ Yes</span>
+                            {% else %}
+                                <span class="badge bg-danger">❌ No</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('admin_bp.view_application', app_id=app.id) }}" class="btn btn-sm btn-outline-primary">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ✅ Pagination -->
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('admin_bp.view_all_applications', page=pagination.prev_num, **request.args.to_dict(flat=True)) }}">
+                    « Prev
+                </a>
+            </li>
+
+            <li class="page-item disabled">
+                <span class="page-link">Page {{ pagination.page }} of {{ pagination.pages }}</span>
+            </li>
+
+            <li class="page-item {% if not pagination.has_next %}disabled{% endif %}">
+                <a class="page-link" href="{{ url_for('admin_bp.view_all_applications', page=pagination.next_num, **request.args.to_dict(flat=True)) }}">
+                    Next »
+                </a>
+            </li>
+        </ul>
+    </nav>
+    {% else %}
+        <p class="text-center text-muted">No applications found.</p>
+    {% endif %}
+
+    <!-- ✅ Back to Dashboard -->
+    <div class="text-center mt-4">
+        <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="btn btn-secondary">← Back to Admin Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>

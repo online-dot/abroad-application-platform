@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Step 4: Confirm and Submit Your Application</h2>
+
+<p>Please review your application carefully before submitting. Once submitted, you will not be able to make any changes.</p>
+
+<h3>Personal Details</h3>
+<ul>
+    <li><strong>Name:</strong> {{ user.full_name }}</li>
+    <li><strong>Email:</strong> {{ user.email }}</li>
+    <li><strong>Phone Number:</strong> {{ application.phone_number }}</li>
+    <li><strong>Date of Birth:</strong> {{ application.date_of_birth }}</li>
+    <li><strong>Education Level:</strong> {{ application.education_level }}</li>
+    <li><strong>Occupation:</strong> {{ application.occupation }}</li>
+    <li><strong>Marital Status:</strong> {{ application.marital_status }}</li>
+    <li><strong>Passport Status:</strong> {{ application.passport_status }}</li>
+</ul>
+
+<h3>Uploaded Documents</h3>
+<ul>
+    {% if application.cv_filename %}
+        <li>CV/Resume: <a href="{{ url_for('app_bp.uploaded_file', filename=application.cv_filename) }}" target="_blank">View/Download</a></li>
+    {% endif %}
+    {% if application.id_filename %}
+        <li>National ID: <a href="{{ url_for('app_bp.uploaded_file', filename=application.id_filename) }}" target="_blank">View/Download</a></li>
+    {% endif %}
+    {% if application.cert_filename %}
+        <li>Certificate: <a href="{{ url_for('app_bp.uploaded_file', filename=application.cert_filename) }}" target="_blank">View/Download</a></li>
+    {% endif %}
+</ul>
+
+<form method="POST">
+    <button type="submit">Submit Application</button>
+</form>
+
+{% endblock %}

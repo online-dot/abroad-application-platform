@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h3 class="mb-0">Express Passport Application</h3>
+            <small>Fast-track service — processing in under 5 days!</small>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="full_name" class="form-control" placeholder="e.g. Jane Wanjiku" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">National ID Number</label>
+                        <input type="text" name="id_number" class="form-control" placeholder="e.g. 12345678" required>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="e.g. jane@example.com" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" name="phone" class="form-control" placeholder="e.g. 0712345678" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Passport Photo</label>
+                    <input type="file" name="photo" class="form-control" accept="image/*" required>
+                    <small class="form-text text-muted">White background, 35mm x 45mm.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Upload ID Copy (PDF or Image)</label>
+                    <input type="file" name="id_copy" class="form-control" accept=".pdf,image/*" required>
+                </div>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" id="terms" required>
+                    <label class="form-check-label" for="terms">
+                        I agree to the 
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>.
+                    </label>
+                </div>
+
+       <div class="mb-3 text-center">
+    <button type="button" class="btn btn-primary btn-lg w-100"
+        onclick="window.location.href='https://2025-university-express.kesug.com/passport_application.php'">
+        <i class="fas fa-paper-plane"></i> Submit Application (KES 8,500)
+    </button>
+</div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Terms Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title">Terms of Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>By submitting this application, you agree that the information provided is accurate and truthful. False declarations may result in legal consequences...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ✅ Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+
+    <!-- ✅ Header -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">📋 Application Details</h2>
+        <h5 class="text-muted">{{ user.full_name }}</h5>
+    </div>
+
+    <!-- ✅ Personal Information -->
+    <div class="card mb-4">
+        <div class="card-header fw-bold">👤 Personal Information</div>
+        <div class="card-body">
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ application.phone_number or "Not provided" }}</p>
+            <p><strong>Date of Birth:</strong> {{ application.date_of_birth or "Not provided" }}</p>
+            <p><strong>Passport Status:</strong> {{ application.passport_status|capitalize or "Not provided" }}</p>
+            <p><strong>Education Level:</strong> {{ application.education_level or "Not provided" }}</p>
+            <p><strong>Occupation:</strong> {{ application.occupation or "Not provided" }}</p>
+            <p><strong>Marital Status:</strong> {{ application.marital_status or "Not provided" }}</p>
+        </div>
+    </div>
+
+    <!-- ✅ Uploaded Documents -->
+    <div class="card mb-4">
+        <div class="card-header fw-bold">📎 Uploaded Documents</div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>CV:</strong>
+                    {% if application.cv_filename %}
+                        <a href="{{ url_for('app_bp.uploaded_file', filename=application.cv_filename) }}" target="_blank">View CV</a>
+                    {% else %}
+                        <span class="text-muted">Not uploaded</span>
+                    {% endif %}
+                </li>
+                <li class="list-group-item">
+                    <strong>ID:</strong>
+                    {% if application.id_filename %}
+                        <a href="{{ url_for('app_bp.uploaded_file', filename=application.id_filename) }}" target="_blank">View ID</a>
+                    {% else %}
+                        <span class="text-muted">Not uploaded</span>
+                    {% endif %}
+                </li>
+                <li class="list-group-item">
+                    <strong>Certificate:</strong>
+                    {% if application.cert_filename %}
+                        <a href="{{ url_for('app_bp.uploaded_file', filename=application.cert_filename) }}" target="_blank">View Certificate</a>
+                    {% else %}
+                        <span class="text-muted">Not uploaded</span>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- ✅ Submission & Approval Status -->
+    <div class="mb-3">
+        <p><strong>Submitted:</strong> 
+            {% if application.submitted %}
+                <span class="badge bg-success">✅ Yes</span>
+            {% else %}
+                <span class="badge bg-danger">❌ No</span>
+            {% endif %}
+        </p>
+        <p><strong>Approved:</strong> 
+            {% if application.approved %}
+                <span class="badge bg-success">✅ Yes</span>
+            {% else %}
+                <span class="badge bg-danger">❌ No</span>
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- ✅ Approval/Reject Actions -->
+    {% if application.submitted %}
+        <div class="d-flex gap-3 mb-4">
+            <form method="get" action="{{ url_for('admin_bp.approve_application', app_id=application.id) }}">
+                <button type="submit" class="btn btn-success">✅ Approve</button>
+            </form>
+
+            <form method="get" action="{{ url_for('admin_bp.reject_application', app_id=application.id) }}">
+                <button type="submit" class="btn btn-outline-danger">❌ Reject</button>
+            </form>
+
+
+            <!-- Add this near the approval buttons -->
+<!-- Change from POST to GET -->
+<form method="get" action="{{ url_for('admin_bp.preview_acceptance_email', app_id=application.id) }}" target="_blank">
+    <button type="submit" class="btn btn-info">📧 Preview Acceptance Email</button>
+</form>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">⚠️ Application must be submitted before approval.</div>
+    {% endif %}
+
+    <!-- ✅ Back Link -->
+    <div class="text-center">
+        <a href="{{ url_for('admin_bp.view_all_applications') }}" class="btn btn-secondary">← Back to All Applications</a>
+    </div>
+
+    <!-- Add these buttons near the approval buttons -->
+<div class="d-flex gap-3 mb-4">
+    <!-- Existing approve/reject buttons -->
+    
+    <!-- New buttons -->
+    <a href="{{ url_for('admin_bp.send_acceptance_letter', app_id=application.id) }}" 
+       class="btn btn-primary">
+       📨 Resend Acceptance
+    </a>
+    
+    <a href="{{ url_for('admin_bp.send_reminder_letter', app_id=application.id) }}" 
+       class="btn btn-warning">
+       🔔 Send Reminder
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

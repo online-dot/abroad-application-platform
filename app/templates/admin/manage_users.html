@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Users</title>
+    <!-- ✅ Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+    <!-- ✅ Page Header -->
+    <div class="text-center mb-4">
+        <h1 class="display-5">👥 Manage Users</h1>
+        <p class="text-muted">Promote or demote users as admins.</p>
+    </div>
+
+    <!-- ✅ Users Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.is_admin %}
+                                <span class="badge bg-success">Admin</span>
+                            {% else %}
+                                <span class="badge bg-secondary">User</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.is_admin %}
+                                {% if user.id != current_user.id %}
+                                    <a href="{{ url_for('admin_bp.demote_user', user_id=user.id) }}" class="btn btn-sm btn-outline-danger">Demote</a>
+                                {% else %}
+                                    <span class="text-muted fst-italic">(You)</span>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ url_for('admin_bp.promote_user', user_id=user.id) }}" class="btn btn-sm btn-outline-success">Promote</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ✅ Back Button -->
+    <div class="mt-4">
+        <a href="{{ url_for('admin_bp.admin_dashboard') }}" class="btn btn-secondary">← Back to Dashboard</a>
+    </div>
+</div>
+
+</body>
+</html>
