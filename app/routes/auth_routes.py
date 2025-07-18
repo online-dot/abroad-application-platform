@@ -5,6 +5,7 @@ from app.models.application import Application
 from app.models import db
 from datetime import datetime
 from utils.email_utils import send_email  
+from flask import render_template 
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -44,6 +45,8 @@ def after_login_redirect():
     return redirect(url_for('app_bp.application_summary'))
 
 
+        # ✅ Send welcome email
+        # 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -65,20 +68,24 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        # ✅ Send welcome email
-        subject = "Welcome to the Work Abroad Application Platform"
+        # ✅ Properly indented email sending
+        subject = "🎉 Welcome to the Work Abroad Application Platform"
         recipients = [email]
-        body = f"""
-Hello {full_name},
+        year = datetime.now().year
 
-Thank you for registering on our platform.
+        html_body = render_template("emails/registration_email.html", full_name=full_name, year=year)
 
-You can now log in and complete your application.
+        text_body = f"""Hello {full_name},
 
-Best regards,
-Work Abroad Team
+Thank you for registering with Work Abroad.
+
+You can now log in and complete your application:
+http://yourwebsite.com/login
+
+- Work Abroad Team
 """
-        success, message = send_email(subject, recipients, body)
+
+        success, message = send_email(subject, recipients, text_body, html=html_body)
 
         if success:
             flash('Registration successful! Confirmation email sent.', 'success')
@@ -88,6 +95,7 @@ Work Abroad Team
         return redirect(url_for('auth.login'))
 
     return render_template('register.html')
+
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
