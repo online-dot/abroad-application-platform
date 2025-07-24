@@ -1,19 +1,107 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h2>User Registration</h2>
-<form method="POST">
+<!-- 🌐 Language Selector -->
+ 
+
+<!-- 🌍 Logo (optional image logo) -->
+<div style="text-align: center; margin-bottom: 20px;">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Platform Logo" width="120">
+</div>
+
+<h2 style="text-align: center;">User Registration</h2>
+
+<!-- 🔴 Validation Error Box -->
+<div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+<form method="POST" novalidate>
     <label for="full_name">Full Name:</label>
-    <input type="text" name="full_name" required>
+    <input type="text" name="full_name" id="full_name" required>
 
     <label for="email">Email:</label>
-    <input type="email" name="email" required>
+    <input type="email" name="email" id="email" required>
 
     <label for="password">Password:</label>
-    <input type="password" name="password" required>
+    <input type="password" name="password" id="password" required oninput="checkPasswordStrength()">
+
+    <!-- 💪 Password strength meter -->
+    <small id="strengthMessage" style="display: block; margin-top: 5px; font-weight: bold;"></small>
 
     <button type="submit">Register</button>
 </form>
 
-<p>Already have an account? <a href="/login">Login here</a></p>
+<p style="text-align: center;">Already have an account? <a href="/login">Login here</a></p>
+
+<!-- ✅ Scripts -->
+<script>
+function checkPasswordStrength() {
+    const password = document.getElementById("password").value;
+    const message = document.getElementById("strengthMessage");
+
+    let strength = 0;
+    if (password.length >= 8) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/\d/.test(password)) strength++;
+    if (/[@$!%*?&]/.test(password)) strength++;
+
+    const levels = [
+        { score: 0, text: "Too weak", color: "red" },
+        { score: 2, text: "Weak", color: "orange" },
+        { score: 3, text: "Moderate", color: "goldenrod" },
+        { score: 4, text: "Strong", color: "green" },
+        { score: 5, text: "Very Strong", color: "darkgreen" },
+    ];
+
+    const current = levels.find(level => strength <= level.score) || levels[4];
+    message.textContent = current.text;
+    message.style.color = current.color;
+}
+
+document.querySelector("form").addEventListener("submit", function(e) {
+    const fullName = document.getElementById("full_name");
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const errorBox = document.getElementById("errorBox");
+    let errors = [];
+
+    if (fullName.value.trim() === "") {
+        fullName.style.borderColor = "red";
+        errors.push("Full Name is required.");
+    } else {
+        fullName.style.borderColor = "#ccc";
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+        email.style.borderColor = "red";
+        errors.push("A valid email is required.");
+    } else {
+        email.style.borderColor = "#ccc";
+    }
+
+    if (password.value.length < 8) {
+        password.style.borderColor = "red";
+        errors.push("Password must be at least 8 characters.");
+    } else {
+        password.style.borderColor = "#ccc";
+    }
+
+    if (errors.length > 0) {
+        e.preventDefault();
+        errorBox.innerHTML = errors.join("<br>");
+        errorBox.style.display = "block";
+    }
+});
+</script>
+<script>
+document.getElementById('languageSelector')?.addEventListener('change', function () {
+  const lang = this.value;
+  if (lang === 'ar') {
+    document.body.dir = 'rtl';
+  } else {
+    document.body.dir = 'ltr';
+  }
+});
+</script>
+
 {% endblock %}

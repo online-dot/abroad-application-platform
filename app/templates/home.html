@@ -1,0 +1,249 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Your Canadian Immigration Journey Starts Here</h1>
+                <p class="lead mb-4">We simplify the complex process of immigrating to Canada with expert guidance and personalized support.</p>
+                <div class="d-flex gap-3">
+                    <a href="http://127.0.0.1:5000/login" class="btn btn-primary btn-lg px-4">Start Application</a>
+                    <a href="http://127.0.0.1:5000/register" class="btn btn-outline-primary btn-lg px-4">Contact Us</a>
+                </div>
+                <div class="trust-indicators mt-4">
+                    <div class="d-flex flex-wrap gap-3">
+                        <span><i class="fas fa-check-circle text-success"></i> 98% Success Rate</span>
+                        <span><i class="fas fa-users text-success"></i> 10,000+ Clients Served</span>
+                        <span><i class="fas fa-globe text-success"></i> Serving Clients Worldwide</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="video-container">
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/MtV2OdpT3jE" 
+                            frameborder="0" allowfullscreen class="rounded shadow"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section id="services" class="why-us py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Why Choose <span class="text-primary">Canadian Visa Expert</span></h2>
+            <p class="section-subtitle">We make your Canadian dream a reality with our comprehensive services</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box bg-primary text-white mb-3">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4 class="card-title">Profile Evaluation</h4>
+                        <p class="card-text">We review your profile and provide honest evaluation for a symbolic fee.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box bg-primary text-white mb-3">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h4 class="card-title">Simplified Process</h4>
+                        <p class="card-text">We simplify the process from A to Z, making it swift and headache-free.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box bg-primary text-white mb-3">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h4 class="card-title">Affordable Fees</h4>
+                        <p class="card-text">Our fees are fair and lower than most companies offering similar services.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box bg-primary text-white mb-3">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4 class="card-title">Test Preparation</h4>
+                        <p class="card-text">We offer IELTS and TEF preparation courses at affordable prices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box bg-primary text-white mb-3">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h4 class="card-title">Job Market Prep</h4>
+                        <p class="card-text">We help you prepare to meet the requirements of the Canadian job market.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <div class="icon-box bg-primary text-white mb-3">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4 class="card-title">Top-notch Support</h4>
+                        <p class="card-text">Our customer service team is at your disposal whenever you need help.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section id="testimonials" class="testimonials py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Hear from people who have successfully immigrated with our help</p>
+        </div>
+        
+        <div class="testimonial-slider">
+            <div class="testimonial-slides">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card active">
+                    <div class="testimonial-img">
+                        <img src="{{ url_for('static', filename='images/testimonials/user1.jpg') }}" alt="Chris Thela">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Everything is perfect and user-friendly. I would definitely recommend it to everyone!"</p>
+                        <h4 class="testimonial-name">Chris Thela</h4>
+                        <small class="testimonial-date">22/08/2022</small>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="{{ url_for('static', filename='images/testimonials/user2.jpg') }}" alt="Amina Yusuf">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Thanks to the platform, I finally got my paperwork done in time for my move to Canada."</p>
+                        <h4 class="testimonial-name">Amina Yusuf</h4>
+                        <small class="testimonial-date">04/01/2023</small>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="{{ url_for('static', filename='images/testimonials/user3.jpg') }}" alt="David Kimani">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="testimonial-text">"The support team was responsive and professional. I'm impressed."</p>
+                        <h4 class="testimonial-name">David Kimani</h4>
+                        <small class="testimonial-date">10/03/2024</small>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="{{ url_for('static', filename='images/testimonials/user4.jpg') }}" alt="Léa Dupont">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"Simple, efficient, and trustworthy. I got great help preparing for my IELTS."</p>
+                        <h4 class="testimonial-name">Léa Dupont</h4>
+                        <small class="testimonial-date">25/06/2023</small>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 5 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-img">
+                        <img src="{{ url_for('static', filename='images/testimonials/user5.jpg') }}" alt="Fatima Al-Mansouri">
+                    </div>
+                    <div class="testimonial-content">
+                        <div class="rating mb-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"I appreciated the honesty and transparency of their evaluation."</p>
+                        <h4 class="testimonial-name">Fatima Al-Mansouri</h4>
+                        <small class="testimonial-date">17/11/2023</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <div class="dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Begin Your Canadian Journey?</h2>
+        <p class="lead mb-5">Take the first step towards your new life in Canada today.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="#apply" class="btn btn-light btn-lg px-4">Start Free Evaluation</a>
+            <a href="#contact" class="btn btn-outline-light btn-lg px-4">Speak to an Expert</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

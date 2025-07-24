@@ -6,6 +6,9 @@ from app.models import db
 from datetime import datetime
 from utils.email_utils import send_email  
 from flask import render_template 
+from utils.token_utils import generate_reset_token, verify_reset_token
+from datetime import datetime
+
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -132,6 +135,59 @@ def login():
 
     return render_template('login.html')
 
+@auth_bp.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            token = generate_reset_token(user.email)
+            reset_url = url_for('auth.reset_password', token=token, _external=True)
+
+            subject = "🔐 Reset Your Password"
+            recipients = [user.email]
+            text_body = f"""Hello {user.full_name},
+
+You requested to reset your password.
+
+Click here to reset: {reset_url}
+
+If you didn’t request this, please ignore this email.
+
+- Work Abroad Team
+"""
+            html_body = render_template("emails/reset_password_email.html", full_name=user.full_name, reset_url=reset_url)
+
+            send_email(subject, recipients, text_body, html=html_body)
+            flash("✅ Password reset instructions sent to your email.", "info")
+        else:
+            flash("No account found with that email.", "warning")
+
+        return redirect(url_for('auth.login'))
+
+    return render_template('forgot_password.html')
+@auth_bp.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    email = verify_reset_token(token)
+    if not email:
+        flash("❌ Invalid or expired token.", "danger")
+        return redirect(url_for('auth.forgot_password'))
+
+    if request.method == 'POST':
+        new_password = request.form.get('password')
+        user = User.query.filter_by(email=email).first()
+        if user:
+            user.set_password(new_password)
+            db.session.commit()
+            flash("✅ Password updated successfully. You can now log in.", "success")
+            return redirect(url_for('auth.login'))
+
+    return render_template('reset_password.html', token=token)
+
+
+
+
 
 @auth_bp.route('/dashboard')
 @login_required
@@ -187,7 +243,9 @@ def dashboard():
         user=user,
         application=application,
         steps=steps,
-        next_step_url=next_step_url
+        current_year=datetime.now().year,
+        next_step_url=next_step_url,
+         
     )
 
 

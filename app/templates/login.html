@@ -1,17 +1,81 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h2>User Login</h2>
-<form method="POST">
+<!-- 🌐 Language Selector -->
+<div style="text-align: right; margin-bottom: 10px;">
+    🌐 <select name="language" id="languageSelector" style="padding: 5px; border-radius: 5px;">
+        <option value="en">English</option>
+        <option value="sw">Kiswahili</option>
+        <option value="fr">Français</option>
+        <option value="ar">Arabic</option>
+    </select>
+</div>
+
+<!-- 🌍 Logo -->
+<div style="text-align: center; margin-bottom: 20px;">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Platform Logo" width="120">
+</div>
+
+<h2 style="text-align: center;">User Login</h2>
+
+<!-- 🔴 Validation Error Box -->
+<div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+<form method="POST" action="/login" novalidate>
     <label for="email">Email:</label>
-    <input type="email" name="email" required>
+    <input type="email" id="email" name="email" required>
 
     <label for="password">Password:</label>
-    <input type="password" name="password" required>
+    <div class="input-wrapper" style="position: relative;">
+        <input type="password" id="password" name="password" required style="padding-right: 40px;">
+        <span class="toggle-password" onclick="togglePassword()" style="
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;">👁️</span>
+    </div>
 
     <button type="submit">Login</button>
+
+    <div class="form-links" style="margin-top: 15px; text-align: center;">
+        <a href="/forgot-password" class="forgot-link">Forgot password?</a><br>
+        <p>Don't have an account? <a href="/register">Register here</a></p>
+    </div>
 </form>
 
-<p>Don't have an account? <a href="/register">Register here</a></p>
+<!-- ✅ Scripts -->
+<script>
+function togglePassword() {
+    const pwd = document.getElementById("password");
+    pwd.type = (pwd.type === "password") ? "text" : "password";
+}
 
+document.querySelector("form").addEventListener("submit", function(e) {
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const errorBox = document.getElementById("errorBox");
+    let errors = [];
+
+    if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+        email.style.borderColor = "red";
+        errors.push("Enter a valid email address.");
+    } else {
+        email.style.borderColor = "#ccc";
+    }
+
+    if (password.value.length < 6) {
+        password.style.borderColor = "red";
+        errors.push("Password must be at least 6 characters.");
+    } else {
+        password.style.borderColor = "#ccc";
+    }
+
+    if (errors.length > 0) {
+        e.preventDefault();
+        errorBox.innerHTML = errors.join("<br>");
+        errorBox.style.display = "block";
+    }
+});
+</script>
 {% endblock %}

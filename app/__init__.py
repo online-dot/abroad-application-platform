@@ -7,6 +7,9 @@ from app.routes.app_routes import app_bp
 from app.routes.admin_routes import admin_bp
 from app.models.user import User
 from .scheduler.scheduler import start_scheduler
+from flask import render_template
+
+
 
 migrate = Migrate()
 
@@ -49,7 +52,7 @@ def create_app():
     # ✅ ✅ ✅ HOMEPAGE ROUTE — must be BEFORE `return app`
     @app.route('/')
     def index():
-        return "✅ Abroad Application Platform is live on Render!"
+        return render_template("home.html")
 
     print("✅ Registered Routes:")
     print(app.url_map)

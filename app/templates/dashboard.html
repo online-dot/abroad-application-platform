@@ -1,49 +1,232 @@
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% extends 'layout.html' %}
+
 {% block content %}
-<h2>Welcome, {{ user.full_name }}!</h2>
 
-<h3>Your Application Progress</h3>
+<!-- 🌍 Header with Navigation -->
+<header style="background: #007b5e; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="display: flex; align-items: center;">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" width="50" style="margin-right: 10px;">
+        <h1 style="margin: 0; font-size: 1.5rem;">Abroad Application Portal</h1>
+    </div>
+    <nav>
+        <a href="/" style="color: white; margin-right: 15px;">Home</a>
+        <a href="/faq" style="color: white; margin-right: 15px;">FAQ</a>
+        <a href="/privacy" style="color: white; margin-right: 15px;">Privacy</a>
+        <a href="/logout" style="color: #ffd700;">Logout</a>
+    </nav>
+</header>
 
-<ul>
-    <li>
-        Step 1: Passport Status
-        {% if steps.step1 %}
-            <span style="color:green;">&#10004; Completed</span>
-        {% else %}
-            <span style="color:red;">&#10006; Pending</span>
-        {% endif %}
-    </li>
-    <li>
-        Step 2: Personal Details
-        {% if steps.step2 %}
-            <span style="color:green;">&#10004; Completed</span>
-        {% else %}
-            <span style="color:red;">&#10006; Pending</span>
-        {% endif %}
-    </li>
-    <li>
-        Step 3: Upload Documents
-        {% if steps.step3 %}
-            <span style="color:green;">&#10004; Completed</span>
-        {% else %}
-            <span style="color:red;">&#10006; Pending</span>
-        {% endif %}
-    </li>
-    <li>
-        Step 4: Submit Application
+<!-- 🌐 Language Selector -->
+ 
+
+<!-- 👤 Welcome -->
+<div class="container">
+    <h2 style="text-align:center;">Welcome, {{ user.full_name }}!</h2>
+
+<h3 class="mb-4 mt-5 text-center text-primary fw-bold">Your Application Progress</h3>
+
+<div class="row row-cols-1 row-cols-md-4 g-4 text-center">
+
+    <div class="col">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <span class="badge bg-primary rounded-circle p-3">1</span>
+                </div>
+                <h6 class="card-title">Passport Status</h6>
+                {% if steps.step1 %}
+                    <span class="badge bg-success">✅ Completed</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">⌛ Pending</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <span class="badge bg-primary rounded-circle p-3">2</span>
+                </div>
+                <h6 class="card-title">Personal Details</h6>
+                {% if steps.step2 %}
+                    <span class="badge bg-success">✅ Completed</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">⌛ Pending</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <span class="badge bg-primary rounded-circle p-3">3</span>
+                </div>
+                <h6 class="card-title">Upload Documents</h6>
+                {% if steps.step3 %}
+                    <span class="badge bg-success">✅ Completed</span>
+                {% else %}
+                    <span class="badge bg-warning text-dark">⌛ Pending</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <div class="mb-2">
+                    <span class="badge bg-primary rounded-circle p-3">4</span>
+                </div>
+                <h6 class="card-title">Submit Application</h6>
+                {% if steps.step4 %}
+                    <span class="badge bg-info">📤 Submitted</span>
+                {% else %}
+                    <span class="badge bg-danger">🕓 Not Submitted</span>
+                {% endif %}
+            </div>
+        </div>
+<!-- Action Button Section -->
+<div class="row mt-4">
+    <div class="col text-center">
         {% if steps.step4 %}
-            <span style="color:green;">&#10004; Submitted</span>
+            <div class="alert alert-success d-inline-block w-auto">✅ Your application is complete and submitted. Thank you!</div><br>
+            <a href="{{ url_for('app_bp.application_summary') }}" class="btn btn-primary mt-2">📄 View Application Summary</a>
         {% else %}
-            <span style="color:red;">&#10006; Not Submitted</span>
+            <a href="{{ next_step_url }}" class="btn btn-success btn-lg">➡️ Continue to Next Step</a>
         {% endif %}
-    </li>
-</ul>
+    </div>
+</div>
 
-{% if steps.step4 %}
-    <p><strong>Your application is complete and submitted. Thank you!</strong></p>
-    <a href="{{ url_for('app_bp.application_summary') }}" class="btn btn-primary">View Application Summary</a>
-{% else %}
-    <a href="{{ next_step_url }}" class="btn btn-success">Continue to Next Step</a>
-{% endif %}
+
+
+    </div>
+
+</div>
+
+
+<!-- 🦶 Footer -->
+<footer style="margin-top: 60px; padding: 20px; text-align: center; background: #f0f0f0;">
+<p>&copy; {{ current_year }} Abroad Application Platform. All rights reserved.</p>
+
+    <div style="margin-top: 10px;">
+        <a href="/faq">FAQ</a> | 
+        <a href="/privacy">Privacy Policy</a> | 
+        <a href="/terms">Terms</a>
+    </div>
+</footer>
+
+<style>
+    .btn-lg {
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+    .badge {
+    font-size: 0.9rem;
+    padding: 0.5em 1em;
+}
+
+.status.success {
+    color: green;
+    font-weight: bold;
+}
+.status.error {
+    color: red;
+    font-weight: bold;
+}
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    display: inline-block;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+.alert {
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.progress-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.progress-list li {
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step-number {
+    background-color: #28a745;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.badge {
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.badge-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+
+
+</style>
 
 {% endblock %}
