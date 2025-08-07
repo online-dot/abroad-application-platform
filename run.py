@@ -17,7 +17,7 @@ print("📅 Registering frequent reminder email job...")
 scheduler.add_job(
     func=lambda: print(send_reminder_emails(app)),  # Log result in terminal
     trigger="interval",
-    hours=6,
+    minutes=1,
     id='reminder_email_job_frequent',
     replace_existing=True
 )
@@ -27,7 +27,7 @@ print("📅 Registering auto approval job...")
 scheduler.add_job(
     func=lambda: print(auto_approve_submitted_applications(app)),  # Log result
     trigger="interval",
-    hours=7,
+    minutes=1,
     id='auto_approval_job',
     replace_existing=True
 )
@@ -37,7 +37,7 @@ print("📅 Registering weekly reminder job...")
 scheduler.add_job(
     func=lambda: print(send_reminder_emails(app)),  # Log result
     trigger="interval",
-    days=1,
+    minutes=1,
     id='reminder_email_job_weekly',
     replace_existing=True
 )

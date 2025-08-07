@@ -1,54 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Reminder: Start Your Work Abroad Application</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
+      color: #333333;
       margin: 0;
       padding: 0;
-      color: #333;
     }
+
     .container {
       background-color: #ffffff;
       max-width: 600px;
-      margin: 40px auto;
+      margin: 30px auto;
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-    h2 {
-      color: #007BFF;
+
+    .header {
+      text-align: center;
+      color: #004085;
+      font-size: 22px;
+      font-weight: bold;
+      border-bottom: 1px solid #dddddd;
+      padding-bottom: 10px;
     }
-    .button {
-      display: inline-block;
-      padding: 12px 20px;
+
+    .greeting {
       margin-top: 20px;
-      background-color: #007BFF;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
+      font-size: 16px;
     }
+
+    .greeting strong {
+      color: #000;
+    }
+
+    .content {
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #007bff;
+      color: #ffffff !important;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
     .footer {
       margin-top: 30px;
       font-size: 12px;
-      color: #999;
+      color: #777777;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Hello {{ full_name }},</h2>
-    <p>We noticed you created an account but haven’t started your Work Abroad application yet.</p>
+    <div class="header">Work Abroad Application Reminder</div>
 
-    <p>Starting your application is the first step toward exciting career opportunities abroad.</p>
+    <div class="greeting">
+      Hello <strong>{{ full_name }}</strong>,
+    </div>
 
-    <a href="http://yourwebsite.com/login" class="button">Start My Application</a>
+    <div class="content">
+      We noticed you created an account but haven't started your <strong>Work Abroad application</strong> yet.
 
+      Starting your application is the first step toward exploring global job opportunities and immigration support.
+
+      When you're ready, click below to begin your secure application process.
+    </div>
+
+    <a href="https://abroad-application-platform.onrender.com/login" class="cta-button">Start Your Application</a>
+
+  <!-- Signature Section -->
+    <div class="signature">
+      <img src="https://abroad-application-platform.onrender.com/static/images/signature.png">
+      Kind regards,<br><br>
+      <strong>Grace M. Okello</strong><br>
+      Immigration Program Officer<br>
+      <strong>Work Abroad Initiative</strong><br>
+      <a href="mailto:support@workabroad.org" style="color: #007bff;">support@workabroad.org</a> | 
+      <a href="https://abroad-application-platform.onrender.com" style="color: #007bff;">www.workabroad.org</a><br>
+      <span style="font-size: 12px; color: #999;">In partnership with CVE Immigration Support</span>
+    </div>
+    
     <div class="footer">
-      <p>Thank you for choosing the Work Abroad platform.</p>
+      You're receiving this email because you signed up for the Work Abroad program.<br>
+      &copy; 2025 Work Abroad | All rights reserved.
     </div>
   </div>
 </body>

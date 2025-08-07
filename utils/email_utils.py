@@ -7,7 +7,13 @@ def send_email(subject, recipients, body, html=None):
     Core email sending function
     """
     try:
-        msg = Message(subject=subject, recipients=recipients, body=body)
+        msg = Message(
+    subject=subject,
+    recipients=recipients,
+    body=body,
+    sender=("Work Abroad Team", "work abroad team ")
+)
+
         if html:
             msg.html = html
         mail.send(msg)

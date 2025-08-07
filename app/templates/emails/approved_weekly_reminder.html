@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weekly Reminder</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .header {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #004085;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 15px;
+    }
+
+    .greeting {
+      margin-top: 25px;
+      font-size: 16px;
+    }
+
+    .greeting strong {
+      color: #000;
+    }
+
+    .content {
+      margin: 20px 0;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .registration-number {
+      font-size: 16px;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .highlight {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffeeba;
+      padding: 10px 15px;
+      margin-top: 15px;
+      color: #856404;
+      font-weight: bold;
+    }
+
+    .cta-button {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 0;
+      background-color: #28a745;
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #999999;
+      margin-top: 40px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 20px;
+      }
+      .cta-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">You're Approved! 🇨🇦 Next Step: Final Submission</div>
+
+    <div class="greeting">
+      Hello <strong>{{ full_name }}</strong>,
+    </div>
+
+    <div class="content">
+      We're excited to let you know that your application has been <strong>approved</strong> for Permanent Residency (PR) evaluation to <strong>Canada</strong>.
+
+      <p>Your registration number is:</p>
+      <div class="registration-number">{{ registration_number }}</div>
+
+      <p>To move forward, please complete your final electronic submission as soon as possible.</p>
+
+      <div class="highlight">⏳ Late submissions will not be accepted for the 2025 intake!</div>
+    </div>
+
+    <a href="https://abroad-application-platform.onrender.com/login" class="cta-button">Continue Application</a>
+
+  <!-- Signature Section -->
+    <div class="signature">
+      <img src="https://example.com/signature.png" alt="Signature" class="signature-image"><br> <!-- Replace this URL with real one -->
+      Kind regards,<br><br>
+      <strong>Grace M. Okello</strong><br>
+      Immigration Program Officer<br>
+      <strong>Work Abroad Initiative</strong><br>
+      <a href="mailto:support@workabroad.org" style="color: #007bff;">support@workabroad.org</a> | 
+      <a href="https://abroad-application-platform.onrender.com" style="color: #007bff;">www.workabroad.org</a><br>
+      <span style="font-size: 12px; color: #999;">In partnership with CVE Immigration Support</span>
+    </div>
+
+    <div class="signature">
+      <img src="https://abroad-application-platform.onrender.com/static/images/signature.png">
+      Kind regards,<br><br>
+      <strong>Grace M. Okello</strong><br>
+      Immigration Program Officer<br>
+      <strong>Work Abroad Initiative</strong><br>
+      <a href="mailto:support@workabroad.org" style="color: #007bff;">support@workabroad.org</a> | 
+      <a href="https://abroad-application-platform.onrender.com" style="color: #007bff;">www.workabroad.org</a><br>
+      <span style="font-size: 12px; color: #999;">In partnership with CVE Immigration Support</span>
+    </div>
+    
+    <div class="footer">
+      You're receiving this email because you signed up for the Work Abroad program.<br>
+      &copy; 2025 Work Abroad | All rights reserved.
+    </div>
+  </div>
+</body>
+</html>

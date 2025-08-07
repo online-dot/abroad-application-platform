@@ -5,6 +5,7 @@ from flask import current_app, render_template
 from utils.email_utils import send_acceptance_email, send_email
 from app.models.user import User
 
+
 def send_reminder_emails(app):
     with app.app_context():
         current_app.logger.info("🔄 Running reminder email job...")
@@ -35,7 +36,9 @@ def send_reminder_emails(app):
 
 We noticed you created an account but haven't started your Work Abroad application yet.
 
-Start here: http://yourwebsite.com/login
+Starting your application is the first step toward global job opportunities and immigration support.
+
+Resume here: https://abroad-application-platform.onrender.com/login
 
 - Work Abroad Team
 """
@@ -53,7 +56,7 @@ Start here: http://yourwebsite.com/login
                 # CASE 2: Incomplete application
                 incomplete = []
                 if not application.passport_status:
-                    incomplete.append("Step 1: Passport info")
+                    incomplete.append("Step 1: Passport Info")
                 if not all([
                     application.phone_number,
                     application.date_of_birth,
@@ -72,16 +75,26 @@ Start here: http://yourwebsite.com/login
                     incomplete.append("Step 4: Final Submission")
 
                 if incomplete:
+                    html_body = render_template(
+                        "emails/incomplete_application_reminder.html",
+                        full_name=user.full_name,
+                        incomplete_steps=incomplete
+                    )
+
                     subject = "⏳ Reminder: Complete Your Work Abroad Application"
                     steps = "\n- " + "\n- ".join(incomplete)
-                    body = f"""Hello {user.full_name},
+                    text_body = f"""Hello {user.full_name},
 
-Your application is still incomplete. Please complete:
-{steps}
+Your Work Abroad application is still incomplete. Please complete:
 
-Resume here: http://yourwebsite.com/login
+steps = "\n- " + "\n- ".join(incomplete)
+
+Resume here: https://abroad-application-platform.onrender.com/login
+
+- Work Abroad Team
 """
-                    success, msg = send_email(subject, [user.email], body)
+
+                    success, msg = send_email(subject, [user.email], text_body, html=html_body)
                     if success:
                         current_app.logger.info(f"✅ Sent incomplete reminder to {user.email}")
                         reminder_stats['incomplete'] += 1

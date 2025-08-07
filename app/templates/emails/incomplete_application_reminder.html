@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      text-align: center;
+      color: #d39e00;
+      font-size: 22px;
+      font-weight: bold;
+      border-bottom: 1px solid #dddddd;
+      padding-bottom: 10px;
+    }
+
+    .greeting {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .greeting strong {
+      color: #000;
+    }
+
+    .content {
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+
+    .steps {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-left: 4px solid #ffc107;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    .steps ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .steps li {
+      margin-bottom: 8px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #28a745;
+      color: #ffffff !important;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #777777;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">Your Application Is Still Incomplete</div>
+
+    <div class="greeting">
+      Hello <strong>{{ full_name }}</strong>,
+    </div>
+
+    <div class="content">
+      We noticed your Work Abroad application is still missing some important steps. Please complete the following:
+    </div>
+
+    <div class="steps">
+      <ul>
+        {% for step in incomplete_steps %}
+          <li>{{ step }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <a href="https://abroad-application-platform.onrender.com/login" class="cta-button">Resume Your Application</a>
+
+  <!-- Signature Section -->
+    <div class="signature">
+      <img src="https://example.com/signature.png" alt="Signature" class="signature-image"><br> <!-- Replace this URL with real one -->
+      Kind regards,<br><br>
+      <strong>Grace M. Okello</strong><br>
+      Immigration Program Officer<br>
+      <strong>Work Abroad Initiative</strong><br>
+      <a href="mailto:support@workabroad.org" style="color: #007bff;">support@workabroad.org</a> | 
+      <a href="https://abroad-application-platform.onrender.com" style="color: #007bff;">www.workabroad.org</a><br>
+      <span style="font-size: 12px; color: #999;">In partnership with CVE Immigration Support</span>
+    </div>
+    
+    <div class="signature">
+      <img src="https://abroad-application-platform.onrender.com/static/images/signature.png">
+      Kind regards,<br><br>
+      <strong>Grace M. Okello</strong><br>
+      Immigration Program Officer<br>
+      <strong>Work Abroad Initiative</strong><br>
+      <a href="mailto:support@workabroad.org" style="color: #007bff;">support@workabroad.org</a> | 
+      <a href="https://abroad-application-platform.onrender.com" style="color: #007bff;">www.workabroad.org</a><br>
+      <span style="font-size: 12px; color: #999;">In partnership with CVE Immigration Support</span>
+    </div>
+    
+    <div class="footer">
+      You're receiving this email because you signed up for the Work Abroad program.<br>
+      &copy; 2025 Work Abroad | All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
